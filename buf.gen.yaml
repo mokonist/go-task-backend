@@ -1,0 +1,23 @@
+version: v1
+managed:
+  enabled: true
+  go_package_prefix:
+    default: github.com/mokocm/todo-backend/gen
+plugins:
+  - plugin: go
+    out: gen
+    opt: paths=source_relative
+  - plugin: go-grpc
+    out: gen
+    opt: paths=source_relative
+  - plugin: connect-go
+    out: gen
+    opt: paths=source_relative
+  - plugin: es
+    path: node_modules/.bin/protoc-gen-es
+    out: gen
+    opt: target=ts
+  - plugin: connect-query
+    path: node_modules/.bin/protoc-gen-connect-query
+    out: gen
+    opt: target=ts

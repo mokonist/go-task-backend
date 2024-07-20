@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+package todo.v1;
+
+// タスクのステータス
+enum TaskStatus {
+  TASK_STATUS_UNKNOWN = 0;
+  TASK_STATUS_TODO = 1;
+  TASK_STATUS_WIP = 2;
+  TASK_STATUS_DONE = 3;
+}
+
+// タスク
+message Task {
+  string id = 1;
+  string title = 2;
+  string description = 3;
+  TaskStatus status = 4;
+  string created_at = 5;
+  string updated_at = 6;
+}
+
+// タスクのサービス
+service TaskService {
+  // タスクIDからタスクを取得する
+  rpc GetTask(GetTaskRequest) returns (GetTaskResponse) {}
+  // タスク一覧を取得する
+  rpc GetTasks(GetTasksRequest) returns (GetTasksResponse) {}
+  // タスクを作成する
+  rpc CreateTask(CreateTaskRequest) returns (CreateTaskResponse) {}
+}
+
+message GetTaskRequest {
+  string id = 1;
+}
+
+message GetTaskResponse {
+  Task task = 1;
+}
+
+message GetTasksRequest {
+  string id = 1;
+  string title = 2;
+  string description = 3;
+  Task status = 4;
+}
+
+message GetTasksResponse {
+  repeated Task task = 1;
+}
+
+message CreateTaskRequest {
+  string title = 1;
+  string description = 2;
+  TaskStatus status = 3;
+}
+
+message CreateTaskResponse {
+  Task task = 1;
+}
+
+message UpdateTaskRequest {
+  Task task = 1;
+}
+
+message UpdateTaskResponse {
+  Task task = 1;
+}
